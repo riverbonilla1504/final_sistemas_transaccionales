@@ -1,0 +1,388 @@
+# API ENDPOINTS - GESTIÓN DE ALQUILER DE VEHÍCULOS
+
+# =============================== CLIENTES ===============================
+
+# 1. Obtener todos los clientes
+URL: /api/clientes
+MÉTODO: GET
+BODY: N/A
+PARAMS: N/A
+RESPONSE: 
+[
+  {
+    "id": 1,
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "documento": "12345678A",
+    "email": "juan.perez@example.com",
+    "telefono": "123456789",
+    "fechaNacimiento": "1990-01-15",
+    "direccion": "Calle Principal 123",
+    "fechaRegistro": "2025-05-30"
+  }
+]
+
+# 2. Obtener cliente por ID
+URL: /api/clientes/{id}
+MÉTODO: GET
+BODY: N/A
+PARAMS: id (path variable) - ID del cliente
+RESPONSE:
+{
+  "id": 1,
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "documento": "12345678A",
+  "email": "juan.perez@example.com",
+  "telefono": "123456789",
+  "fechaNacimiento": "1990-01-15",
+  "direccion": "Calle Principal 123",
+  "fechaRegistro": "2025-05-30"
+}
+
+# 3. Obtener cliente por documento
+URL: /api/clientes/documento/{documento}
+MÉTODO: GET
+BODY: N/A
+PARAMS: documento (path variable) - Número de documento del cliente
+RESPONSE: (Igual que el punto 2)
+
+# 4. Obtener cliente por email
+URL: /api/clientes/email/{email}
+MÉTODO: GET
+BODY: N/A
+PARAMS: email (path variable) - Email del cliente
+RESPONSE: (Igual que el punto 2)
+
+# 5. Buscar clientes por nombre
+URL: /api/clientes/nombre/{nombre}
+MÉTODO: GET
+BODY: N/A
+PARAMS: nombre (path variable) - Nombre o parte del nombre del cliente
+RESPONSE: (Array similar al punto 1)
+
+# 6. Crear nuevo cliente
+URL: /api/clientes
+MÉTODO: POST
+BODY:
+{
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "documento": "12345678A",
+  "email": "juan.perez@example.com",
+  "telefono": "123456789",
+  "fechaNacimiento": "1990-01-15",
+  "direccion": "Calle Principal 123"
+}
+PARAMS: N/A
+RESPONSE: (Cliente creado, similar al punto 2)
+
+# 7. Actualizar cliente existente
+URL: /api/clientes/{id}
+MÉTODO: PUT
+BODY: (Igual que en la creación)
+PARAMS: id (path variable) - ID del cliente a actualizar
+RESPONSE: (Cliente actualizado, similar al punto 2)
+
+# 8. Eliminar cliente
+URL: /api/clientes/{id}
+MÉTODO: DELETE
+BODY: N/A
+PARAMS: id (path variable) - ID del cliente a eliminar
+RESPONSE: HTTP 204 (No Content)
+
+# 9. Obtener clientes con más alquileres en el último año
+URL: /api/clientes/mas-alquileres
+MÉTODO: GET
+BODY: N/A
+PARAMS: N/A
+RESPONSE:
+[
+  {
+    "id": 1,
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "documento": "12345678A",
+    "email": "juan.perez@example.com",
+    "cantidadAlquileres": 5
+  }
+]
+
+# =============================== VEHÍCULOS ===============================
+
+# 10. Obtener todos los vehículos
+URL: /api/vehiculos
+MÉTODO: GET
+BODY: N/A
+PARAMS: N/A
+RESPONSE:
+[
+  {
+    "id": 1,
+    "marca": "Toyota",
+    "modelo": "Corolla",
+    "matricula": "ABC123",
+    "anio": 2024,
+    "tipo": "SEDAN",
+    "color": "Blanco",
+    "precioPorDia": 45.00,
+    "disponible": true,
+    "descripcion": "Vehículo familiar con bajo consumo"
+  }
+]
+
+# 11. Obtener vehículo por ID
+URL: /api/vehiculos/{id}
+MÉTODO: GET
+BODY: N/A
+PARAMS: id (path variable) - ID del vehículo
+RESPONSE:
+{
+  "id": 1,
+  "marca": "Toyota",
+  "modelo": "Corolla",
+  "matricula": "ABC123",
+  "anio": 2024,
+  "tipo": "SEDAN",
+  "color": "Blanco",
+  "precioPorDia": 45.00,
+  "disponible": true,
+  "descripcion": "Vehículo familiar con bajo consumo"
+}
+
+# 12. Obtener vehículo por matrícula
+URL: /api/vehiculos/matricula/{matricula}
+MÉTODO: GET
+BODY: N/A
+PARAMS: matricula (path variable) - Matrícula del vehículo
+RESPONSE: (Igual que el punto 11)
+
+# 13. Buscar vehículos por marca
+URL: /api/vehiculos/marca/{marca}
+MÉTODO: GET
+BODY: N/A
+PARAMS: marca (path variable) - Marca o parte de la marca del vehículo
+RESPONSE: (Array similar al punto 10)
+
+# 14. Buscar vehículos por tipo
+URL: /api/vehiculos/tipo/{tipo}
+MÉTODO: GET
+BODY: N/A
+PARAMS: tipo (path variable) - Tipo de vehículo (SEDAN, SUV, etc.)
+RESPONSE: (Array similar al punto 10)
+
+# 15. Listar vehículos disponibles
+URL: /api/vehiculos/disponibles
+MÉTODO: GET
+BODY: N/A
+PARAMS: N/A
+RESPONSE: (Array similar al punto 10, solo vehículos con disponible=true)
+
+# 16. Crear nuevo vehículo
+URL: /api/vehiculos
+MÉTODO: POST
+BODY:
+{
+  "marca": "Toyota",
+  "modelo": "Corolla",
+  "matricula": "ABC123",
+  "anio": 2024,
+  "tipo": "SEDAN",
+  "color": "Blanco",
+  "precioPorDia": 45.00,
+  "disponible": true,
+  "descripcion": "Vehículo familiar con bajo consumo"
+}
+PARAMS: N/A
+RESPONSE: (Vehículo creado, similar al punto 11)
+
+# 17. Actualizar vehículo existente
+URL: /api/vehiculos/{id}
+MÉTODO: PUT
+BODY: (Igual que en la creación)
+PARAMS: id (path variable) - ID del vehículo a actualizar
+RESPONSE: (Vehículo actualizado, similar al punto 11)
+
+# 18. Eliminar vehículo
+URL: /api/vehiculos/{id}
+MÉTODO: DELETE
+BODY: N/A
+PARAMS: id (path variable) - ID del vehículo a eliminar
+RESPONSE: HTTP 204 (No Content)
+
+# 19. Obtener vehículos sin alquileres en los últimos 30 días
+URL: /api/vehiculos/sin-alquileres-ultimos-30-dias
+MÉTODO: GET
+BODY: N/A
+PARAMS: N/A
+RESPONSE: (Array similar al punto 10)
+
+# 20. Obtener promedio de duración por tipo de vehículo
+URL: /api/vehiculos/promedio-duracion-por-tipo
+MÉTODO: GET
+BODY: N/A
+PARAMS: N/A
+RESPONSE:
+[
+  {
+    "tipoVehiculo": "SEDAN",
+    "promedioDias": 5.75
+  },
+  {
+    "tipoVehiculo": "SUV",
+    "promedioDias": 7.33
+  }
+]
+
+# =============================== ALQUILERES ===============================
+
+# 21. Obtener todos los alquileres
+URL: /api/alquileres
+MÉTODO: GET
+BODY: N/A
+PARAMS: N/A
+RESPONSE:
+[
+  {
+    "id": 1,
+    "clienteId": 1,
+    "nombreCliente": "Juan Pérez",
+    "vehiculoId": 1,
+    "detalleVehiculo": "Toyota Corolla (ABC123)",
+    "fechaInicio": "2025-06-01",
+    "fechaFin": "2025-06-05",
+    "fechaCreacion": "2025-05-30",
+    "fechaDevolucion": null,
+    "costoTotal": 225.00,
+    "estado": "PENDIENTE",
+    "observaciones": "Primera reserva del cliente"
+  }
+]
+
+# 22. Obtener alquiler por ID
+URL: /api/alquileres/{id}
+MÉTODO: GET
+BODY: N/A
+PARAMS: id (path variable) - ID del alquiler
+RESPONSE:
+{
+  "id": 1,
+  "clienteId": 1,
+  "nombreCliente": "Juan Pérez",
+  "vehiculoId": 1,
+  "detalleVehiculo": "Toyota Corolla (ABC123)",
+  "fechaInicio": "2025-06-01",
+  "fechaFin": "2025-06-05",
+  "fechaCreacion": "2025-05-30",
+  "fechaDevolucion": null,
+  "costoTotal": 225.00,
+  "estado": "PENDIENTE",
+  "observaciones": "Primera reserva del cliente"
+}
+
+# 23. Obtener alquileres por cliente
+URL: /api/alquileres/cliente/{clienteId}
+MÉTODO: GET
+BODY: N/A
+PARAMS: clienteId (path variable) - ID del cliente
+RESPONSE: (Array similar al punto 21)
+
+# 24. Obtener alquileres por vehículo
+URL: /api/alquileres/vehiculo/{vehiculoId}
+MÉTODO: GET
+BODY: N/A
+PARAMS: vehiculoId (path variable) - ID del vehículo
+RESPONSE: (Array similar al punto 21)
+
+# 25. Obtener alquileres por estado
+URL: /api/alquileres/estado/{estado}
+MÉTODO: GET
+BODY: N/A
+PARAMS: estado (path variable) - Estado del alquiler (PENDIENTE, ACTIVO, COMPLETADO, CANCELADO)
+RESPONSE: (Array similar al punto 21)
+
+# 26. Obtener alquileres vencidos
+URL: /api/alquileres/vencidos
+MÉTODO: GET
+BODY: N/A
+PARAMS: N/A
+RESPONSE: (Array similar al punto 21)
+
+# 27. Obtener historial de alquileres de un cliente
+URL: /api/alquileres/historial-cliente/{clienteId}
+MÉTODO: GET
+BODY: N/A
+PARAMS: clienteId (path variable) - ID del cliente
+RESPONSE: (Array similar al punto 21)
+
+# 28. Crear nuevo alquiler
+URL: /api/alquileres
+MÉTODO: POST
+BODY:
+{
+  "clienteId": 1,
+  "vehiculoId": 1,
+  "fechaInicio": "2025-06-01",
+  "fechaFin": "2025-06-05",
+  "observaciones": "Primera reserva del cliente"
+}
+PARAMS: N/A
+RESPONSE: (Alquiler creado, similar al punto 22)
+
+# 29. Actualizar alquiler existente
+URL: /api/alquileres/{id}
+MÉTODO: PUT
+BODY: (Similar a la creación)
+PARAMS: id (path variable) - ID del alquiler a actualizar
+RESPONSE: (Alquiler actualizado, similar al punto 22)
+
+# 30. Completar un alquiler
+URL: /api/alquileres/{id}/completar
+MÉTODO: PATCH
+BODY: N/A
+PARAMS: 
+- id (path variable) - ID del alquiler
+- fechaDevolucion (request param) - Fecha de devolución (formato ISO, ej: 2025-06-05)
+RESPONSE: (Alquiler actualizado, similar al punto 22)
+
+# 31. Cancelar un alquiler
+URL: /api/alquileres/{id}/cancelar
+MÉTODO: PATCH
+BODY: N/A
+PARAMS: id (path variable) - ID del alquiler
+RESPONSE: (Alquiler actualizado, similar al punto 22)
+
+# 32. Activar un alquiler
+URL: /api/alquileres/{id}/activar
+MÉTODO: PATCH
+BODY: N/A
+PARAMS: id (path variable) - ID del alquiler
+RESPONSE: (Alquiler actualizado, similar al punto 22)
+
+# 33. Eliminar alquiler
+URL: /api/alquileres/{id}
+MÉTODO: DELETE
+BODY: N/A
+PARAMS: id (path variable) - ID del alquiler a eliminar
+RESPONSE: HTTP 204 (No Content)
+
+# 34. Obtener ingresos totales por mes y tipo de vehículo
+URL: /api/alquileres/ingresos-por-mes-y-tipo-vehiculo
+MÉTODO: GET
+BODY: N/A
+PARAMS: N/A
+RESPONSE:
+[
+  {
+    "anio": 2025,
+    "mes": 5,
+    "tipoVehiculo": "SEDAN",
+    "ingresoTotal": 1250.00
+  },
+  {
+    "anio": 2025,
+    "mes": 5,
+    "tipoVehiculo": "SUV",
+    "ingresoTotal": 1750.00
+  }
+] 
