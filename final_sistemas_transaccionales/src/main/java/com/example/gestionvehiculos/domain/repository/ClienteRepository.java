@@ -27,4 +27,11 @@ public interface ClienteRepository extends CrudRepository<Cliente, Long> {
             ORDER BY COUNT(a.id) DESC
             """, nativeQuery = true)
     List<Cliente> findClientesConMasAlquileresUltimoAnio(LocalDate fechaInicio);
+
+    @Query("SELECT c, COUNT(a) as total FROM Cliente c " +
+            "JOIN c.alquileres a " +
+            "WHERE a.fechaInicio >= :fechaInicio " +
+            "GROUP BY c.id " +
+            "ORDER BY total DESC")
+    List<Object[]> findClientesConMasAlquileresUltimoAnioConConteo(LocalDate fechaInicio);
 }

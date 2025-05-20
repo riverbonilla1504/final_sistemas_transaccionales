@@ -5,9 +5,6 @@ import com.example.gestionvehiculos.domain.dto.ClienteDto;
 import com.example.gestionvehiculos.domain.repository.ClienteRepository;
 import com.example.gestionvehiculos.infraestructure.entity.Cliente;
 import com.example.gestionvehiculos.infraestructure.mapper.ClienteMapper;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +19,6 @@ public class ClienteService {
 
     private final ClienteRepository clienteRepository;
     private final ClienteMapper clienteMapper;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     public ClienteService(ClienteRepository clienteRepository, ClienteMapper clienteMapper) {
         this.clienteRepository = clienteRepository;
@@ -116,20 +110,10 @@ public class ClienteService {
 
     @Transactional(readOnly = true)
     public List<ClienteAlquileresDto> findClientesConMasAlquileresUltimoAnio() {
-        // Obtener la fecha de hace un año
         LocalDate fechaHaceUnAnio = LocalDate.now().minusYears(1);
 
-        // Consulta JPQL para obtener clientes con más alquileres en el último año
-        String jpql = "SELECT c, COUNT(a) as total FROM Cliente c " +
-                "JOIN c.alquileres a " +
-                "WHERE a.fechaInicio >= :fechaInicio " +
-                "GROUP BY c.id " +
-                "ORDER BY total DESC";
-
-        TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
-        query.setParameter("fechaInicio", fechaHaceUnAnio);
-
-        return query.getResultList().stream()
+        return clienteRepository.findClientesConMasAlquileresUltimoAnioConConteo(fechaHaceUnAnio)
+                .stream()
                 .map(result -> {
                     Cliente cliente = (Cliente) result[0];
                     Long cantidadAlquileres = (Long) result[1];
